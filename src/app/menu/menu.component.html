@@ -1,0 +1,25 @@
+<div style="position: absolute;">
+    <mat-nav-list>
+        <mat-list-item (click)="toggle[2] = !toggle[2]">
+            <a matLine class="menu-item">Entity Overview</a>
+        </mat-list-item>
+        <div [hidden]="!toggle[2]" style="margin-left: 10px;">
+            <mat-list>
+                <mat-list-item [routerLink]='["/general/1"]' class="menu-item"> General Info </mat-list-item>
+            </mat-list>
+        </div>  
+        <mat-list-item (click)="toggle[1] = !toggle[1]">
+            <a matLine class="menu-item">Billing</a>
+        </mat-list-item>
+    
+        <div [hidden]="!toggle[1]" style="margin-left: 10px;">
+            <mat-list>
+                <mat-list-item [routerLink]='["/billing/1"]' class="menu-item"> All Billing </mat-list-item>
+                <mat-list-item [routerLink]='["/monthly-statements/1"]' class="menu-item"> Monthly Statements </mat-list-item>
+                <mat-list-item [routerLink]='["/payment-receipts/1"]' class="menu-item"> Payment Receipts </mat-list-item>
+                <mat-list-item [routerLink]='["/payment-methods/1"]' class="menu-item"> Payment Methods </mat-list-item>
+            </mat-list>
+        </div>   
+    </mat-nav-list>
+</div>
+

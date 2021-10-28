@@ -1,0 +1,11 @@
+#wrap {
+    position: relative;
+    width: 720px;
+    height: 540px;
+}
+#outer {
+    position: relative;
+    width: 720px;
+    height: 540px;
+    -webkit-transform-origin: top left;
+}

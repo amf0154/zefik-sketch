@@ -1,0 +1,50 @@
+var maxWidth = $('#training-outer').width();
+var maxHeight = $('#training-outer').height();
+
+var windowWidth = $(window).width();
+var windowHeight = $(window).height();
+
+$(window).on("load", function(){
+
+    var currWidth = $('#training-outer').width();
+    var currHeight = $('#training-outer').height();
+    var headerHeight = $('header').height();
+    var footerHeight = $('footer').height();
+    var $window = $(window);
+    var width = $window.width();
+    var height = $window.height();
+    var calculatedHeight = height - footerHeight - headerHeight;
+    var calculatedWidth = width - $('.cell-left').width();
+    var scale;
+
+    scale = Math.min(calculatedWidth / currWidth, calculatedHeight/currHeight);
+    console.log(scale);
+    
+    $('#training-outer').css({'-webkit-transform': 'scale(' + scale + ')'});
+    $('#training-wrap').css({ width: maxWidth * scale, height: maxHeight * scale });
+});
+
+$(window).resize(function(evt) {
+    var currWidth = $('#training-outer').width();
+    var currHeight = $('#training-outer').height();
+    var $window = $(window);
+    var width = $window.width();
+    var height = $window.height();
+    var scale;
+    
+    // early exit
+    /*
+    if(width >= windowWidth && height >= windowHeight) {
+        $('#outer').css({'-webkit-transform': ''});
+        $('#wrap').css({ width: '', height: '' });
+        return;
+    }
+    */
+    
+    //scale = Math.min(width/maxWidth, height/maxHeight);
+    //scale = Math.min(width/windowWidth, height/windowHeight);
+    scale = Math.min(width/currWidth, height/currHeight);
+    
+    $('#training-outer').css({'-webkit-transform': 'scale(' + scale + ')'});
+    $('#training-wrap').css({ width: maxWidth * scale, height: maxHeight * scale });
+});

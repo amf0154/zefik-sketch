@@ -1,0 +1,339 @@
+<!-- <input type="text" [(ngModel)]="value" (input)="onChangeVal()" (input)="onChangeVal()" required="true"/> -->
+    <div *ngIf="item.type !== 'form' && item.type !== 'hidden'" class="row form-field-row" [ngClass]="item.cssClass">
+        <div class="cell colspan4 form-field-label" *ngIf="item.title">
+            {{item.title}}
+            <span style="color: red;" *ngIf="item.required && isEditMode">*</span>
+            <app-tooltip [hint]="item.hint"></app-tooltip>
+            <span *ngIf="item.showCheckbox" class="input-control checkbox-title"  >
+                <label class="input-control checkbox small-check">
+                    <span class="caption">{{item.checkboxTitle}}</span>
+                    <span style="color: red;" *ngIf="item.checkboxRequired">*</span>
+                    <input type="checkbox" [(ngModel)]="item.checkBoxValue" (change)="onFieldClick(item)" [required]="item.checkboxRequired" [disabled]="item.checkBoxDisabled">
+                    <span class="check"></span>
+                </label>
+            </span>
+        </div>
+            <div class="cell input-control text" [ngClass]="{'colspan8': !item.fullWidth, 'full-width': item.fullWidth}" *ngIf="item.type !== 'doc-hat' && item.type !== 'profile-hat'">
+            
+            
+            
+            
+            
+            
+            
+
+
+
+
+
+
+
+            
+            
+            
+            
+            
+            
+            
+            <div *ngIf="item.type === 'text' && item.key !== 'city1' && item.key !== 'city2' && item.key !== 'city3'" [ngClass]="{'clickable-input': item.path}" style="display: flex; align-items: center;" (click)="onPathClickDefaultHandler(item.path, !canChangeBeInfo || !isEditMode || item.disabled || item.readonly)">
+                <input placeholder="{{item.placeholder}}" type="text" (change)="cityChange(item)" pattern="{{item.pattern}}" title="{{item.tooltip}}" [(ngModel)]="value" (input)="onChangeVal()" [required]="item.required" [disabled]="!canChangeBeInfo || !isEditMode || item.disabled || item.readonly" (change)="zsnTableShowSaveButton()"/>  
+                <div style="margin-left: 5px;" *ngIf="defineLabelIcon(item)">
+                    <img style="height: 28px; width: 28px;" [src]='defineLabelIcon(item)' alt="icon">
+                </div>
+            </div>
+            <app-select *ngIf="item.type === 'select'" [item]="item" > </app-select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- <div *ngIf="item.type === 'text' && item.key !== 'city1' && item.key !== 'city2' && item.key !== 'city3'" [ngClass]="{'clickable-input': item.path}" style="display: flex; align-items: center;" (click)="onPathClickDefaultHandler(item.path, !canChangeBeInfo || !isEditMode || item.disabled || item.readonly)">
+                <input placeholder="{{item.placeholder}}" type="text" (change)="cityChange(item)" pattern="{{item.pattern}}" title="{{item.tooltip}}" [(ngModel)]="value" (input)="onChangeVal()" [required]="item.required" [disabled]="!canChangeBeInfo || !isEditMode || item.disabled || item.readonly" (change)="zsnTableShowSaveButton()"/>  
+                <div style="margin-left: 5px;" *ngIf="defineLabelIcon(item)">
+                    <img style="height: 28px; width: 28px;" [src]='defineLabelIcon(item)' alt="icon">
+                </div>
+            </div> -->
+
+    
+            <div *ngIf="item.type === 'promo'" [ngClass]="{'promo-correct': item.isCodeApplied,'promo-incorrect': item.wrongPromo}" style="display: flex; align-items: center;" (click)="onPathClickDefaultHandler(item.path, !canChangeBeInfo || !isEditMode || item.disabled || item.readonly)">
+                <input [(ngModel)]-options="{ debounce: 500 }" (change)="updPromo(item)" placeholder="{{item.placeholder}}" type="text" pattern="{{item.pattern}}" title="{{item.tooltip}}" [(ngModel)]="value" (input)="onChangeVal()" [required]="item.required" [disabled]="!canChangeBeInfo || !isEditMode || item.disabled || item.readonly"/>  
+                <div style="margin-left: 5px;" *ngIf="defineLabelIcon(item)">
+                    <img style="height: 28px; width: 28px;" [src]='defineLabelIcon(item)' alt="icon">
+                </div>
+            </div>
+            <div class="promo-inform promo-not-applied" *ngIf="item.wrongPromo">
+                The promo code you provided doesn’t exist
+            </div>
+            <div class="promo-inform promo-applied" *ngIf="item.isCodeApplied">
+                {{item.appliedPromoText}}
+            </div>
+    
+    
+            <div class="total-calculation" *ngIf="item.type === 'promo'">
+                <span>Total Before: 
+                    <span class="total">{{item.totalBefore}}$</span>
+                </span>
+                <span>Total Discount: 
+                    <span class="total">{{item.TotalDiscount}}$</span>
+                </span>
+                <span>Total Taxes: 
+                    <span class="total">{{item.salesTaxes}}$</span>
+                </span>
+                <span>Total Charge: 
+                    <span class="total">{{item.totalCharge}}$</span>
+                </span>
+    
+            </div>
+            
+            <app-city-input
+            on-change="cityChange(item)"
+            *ngIf="item.type === 'city'"
+            item="item"
+            can-change-be-info="canChangeBeInfo"
+            is-edit-mode="isEditMode"
+            ></app-city-input>
+    
+            
+            <span class="row-items" *ngIf="item.type === 'address1' || item.type === 'address2' || item.type === 'address3'" [ngClass]="{'clickable-input': item.path}" (click)="onPathClickDefaultHandler(item.path, !canChangeBeInfo || !isEditMode || item.disabled || item.readonly)">
+                <input id="{{item.type}}" style="max-height: 30px" type="text" (keyup)="autocomplete(value, item)" pattern="{{item.pattern}}" title="{{item.tooltip}}" [(ngModel)]="value" (input)="onChangeVal()" [required]="item.required" [disabled]="!canChangeBeInfo || !isEditMode || item.disabled || item.readonly" (change)="zsnTableShowSaveButton()"/> 
+            </span>
+            <!-- <ul [ngClass]="{'list-items-autocomplete': filterCountry.length !== 0}" [(ngModel)]="hidethis" *ngIf="item.name == 'StreetAddress' && hasShowItemList(item.$$hashKey)" style="z-index: 999;" [hidden]="hidethis">  
+                <li class="list-item-autocomplete" *ngFor="countrydata in filterCountry" (click)="fillTextbox(countrydata, item)">{{countrydata.Text}}</li>  
+            </ul>  -->
+            <span *ngIf="item.type === 'clickable'" class="clickable-input" (click)="onFieldClick(item)">
+                <input type="text" [(ngModel)]="value" (input)="onChangeVal()" [required]="item.required" disabled />
+            </span>
+            <div *ngIf="item.type === 'affiliation'">
+                <span class="clickable-input affiliation-general-name" (click)="onFieldClick(item)">
+                    <input type="text" [(ngModel)]="value" (input)="onChangeVal()" [required]="item.required" disabled/>
+                </span>
+                <div class="affiliation-general-container">
+                    <input class="affiliation-general-date" *ngFor="date in item.dates" type="text" ng-value="transformDate(date)" disabled/>
+                </div>
+            </div>
+            <span *ngIf="item.type === 'url'"  (click)="onURLInputClick(value, !canChangeBeInfo || !isEditMode || item.disabled || item.readonly)">
+                <input type="text" [(ngModel)]="value" (input)="onChangeVal()" [required]="item.required" [disabled]="!canChangeBeInfo || !isEditMode || item.disabled || item.readonly" (change)="zsnTableShowSaveButton()"  class="url-input" [ngClass]="{'input-has-value': !!value, 'is-invalid-url': !isValidUrl(value)}"/>
+            </span>
+            <span *ngIf="item.type === 'site'"  (click)="onSiteInputClick(item.path, !canChangeBeInfo || !isEditMode || item.disabled || item.readonly)">
+                <input type="text" [(ngModel)]="value" (input)="onChangeVal()" [required]="item.required" [disabled]="!canChangeBeInfo || !isEditMode || item.disabled || item.readonly" (change)="zsnTableShowSaveButton()"  class="url-input" [ngClass]="{'input-has-value': !!value}"/>
+            </span>
+            <span *ngIf="item.type === 'BEID'" (click)="onFieldClick(item)">
+                <input type="text" [(ngModel)]="value" (input)="onChangeVal()" ng-value="value | BEID" [required]="item.required"  disabled/>
+            </span>
+            <span *ngIf="item.type === 'checkbox'" class="input-control" (click)="onFieldClick(item)">
+                <label class="input-control checkbox small-check">
+                    <input type="checkbox" [(ngModel)]="value" (input)="onChangeVal()" [required]="item.required" [disabled]="item.disabled">
+                    <span class="caption">{{item.checkboxTitle}}</span>
+                    <span class="check"></span>
+                </label>
+            </span>
+            
+            <app-credit-card 
+                *ngIf="item.type === 'credit-card'" 
+                required="true" 
+                is-edit-mode="true"
+                key="item.type" 
+                disabled="item.disabled"
+                form="forms[formName]" 
+                value="value">
+            </app-credit-card>
+            
+            <span *ngIf="item.type === 'message'" class="message-title">{{item.message}}</span>
+            <span *ngIf="item.type === 'doc-alert'" class="doc-alert" [hidden]="item.isHidden">{{item.message}}</span>
+            <a *ngIf="item.type === 'removeButton' && isEditMode && isZefikUser" class="{{item.cssClass}} pull-left" (click)="item.remove()"><span class="mif-user-minus"></span><span>Remove</span></a>
+            <a *ngIf="item.type === 'addButton' && isEditMode" class="{{item.cssClass}} pull-left" (click)="item.add()"><span class="mif-user-plus"></span><span>Add</span></a>
+            <!-- <upload-file *ngIf="item.type === 'document'" [(ngModel)]="value" (input)="onChangeVal()" accept="application/pdf"></upload-file> -->
+    
+            <button *ngIf="item.type === 'deleteButton' && item.visible" class="button primary pull-right" (click)="item.delete()" [disabled]="isEditMode">Delete Discount</button>
+            <input *ngIf="item.type === 'number'" type="text" [(ngModel)]="value" (input)="onChangeVal()" numbers-only regexp="item.regexp" pattern="{{item.pattern}}" [attr.maxlength]="item.maxlength" [attr.minlength]="item.minlength" placeholder="{{item.placeholder}}" [required]="item.required" [disabled]="!canChangeBeInfo || !isEditMode || item.disabled || item.readonly" (change)="zsnTableShowSaveButton()"/>
+            <input *ngIf="item.type === 'num'" type="number" [(ngModel)]="value" (input)="onChangeVal()" max="{{item.max}}" min="{{item.min}}" numbers-only regexp="item.regexp" pattern="{{item.pattern}}" [attr.maxlength]="item.maxlength" [attr.minlength]="item.minlength" placeholder="{{item.placeholder}}" [required]="item.required" [disabled]="!canChangeBeInfo || !isEditMode || item.disabled || item.readonly" (change)="zsnTableShowSaveButton()"/>
+            <input *ngIf="item.type === 'float'" type="number" class="no-spin" step=".01" onkeypress="return (this.value.length < 12)" float-type [(ngModel)]="value" (input)="onChangeVal()" regexp="item.regexp" pattern="{{item.pattern}}" [attr.maxlength]="item.maxlength" [attr.minlength]="item.minlength" placeholder="{{item.placeholder}}" [required]="item.required" [disabled]="!canChangeBeInfo || !isEditMode || item.disabled || item.readonly" (change)="zsnTableShowSaveButton()" />
+            <div *ngIf="item.type === 'money-float'" class="input-icon input-icon-right">
+                <input type="number" placeholder="0.00" class="no-spin" step=".01" onkeypress="return (this.value.length < 12)" float-type [(ngModel)]="value" (input)="onChangeVal()" regexp="item.regexp" pattern="{{item.pattern}}" [attr.maxlength]="item.maxlength" [attr.minlength]="item.minlength" placeholder="{{item.placeholder}}" [required]="item.required" [disabled]="!canChangeBeInfo || !isEditMode || item.disabled || item.readonly" (change)="zsnTableShowSaveButton()" />
+                <i>$</i>
+            </div>
+            <div *ngIf="item.type === 'percent'" class="input-icon input-icon-right">
+                <input type="number" step=".01" class="no-spin" placeholder="0.00" min="0" max="100" percent-type [(ngModel)]="value" (input)="onChangeVal()" regexp="item.regexp" pattern="{{item.pattern}}" [attr.maxlength]="item.maxlength" [attr.minlength]="item.minlength" placeholder="{{item.placeholder}}" [required]="item.required" [disabled]="!canChangeBeInfo || !isEditMode || item.disabled || item.readonly" (change)="zsnTableShowSaveButton()" />
+                <i>%</i> 
+            </div>
+            <input *ngIf="item.type === 'floor'"  type="text" [(ngModel)]="value" (input)="onChangeVal()" pattern="/^[0-9a-z,.# /]{0,50}$/" [attr.maxlength]="item.maxlength" [disabled]="!canChangeBeInfo || !isEditMode || item.disabled || item.readonly" (change)="zsnTableShowSaveButton()"/>
+            <input *ngIf="item.type === 'money'"  type="text" [(ngModel)]="value" (input)="onChangeVal()" currency-mask  numbers-only [disabled]="!canChangeBeInfo || !isEditMode || item.disabled || item.readonly" (change)="zsnTableShowSaveButton()"/>
+            <input *ngIf="item.type === 'mask'"   type="text" [(ngModel)]="value" (input)="onChangeVal()" mask="00-0000000" pattern="item.pattern" regexp="item.regexp" [disabled]="!canChangeBeInfo || !isEditMode || item.disabled || item.readonly" (change)="zsnTableShowSaveButton()"/>
+                <app-zip-input on-change="zipChange(item)" *ngIf="item.type === 'zip'" item="item" is-edit-mode="isEditMode" ></app-zip-input>
+            <span  *ngIf="item.type === 'phone'" class="clickable-input" >
+                <div (click)="zsnTableShowSaveButton()" *ngIf="!(!canChangeBeInfo || !isEditMode || item.disabled || item.readonly)">
+                <app-phone-input
+                    form-name="'other'"
+                    required="item.required"
+                    form="forms[formName]"
+                    value="value"
+                    key="item.name"
+                    existance-validation="!!item.existanceValidation"
+                    disabled="false">
+                </app-phone-input>
+                </div>
+                <div class="clickable-layer" (click)="onPhoneInputClick($event, value, !canChangeBeInfo || !isEditMode || item.disabled || item.readonly)" *ngIf="!canChangeBeInfo || !isEditMode || item.disabled || item.readonly">
+                    <app-phone-input
+                    form-name="'other'"
+                    form="forms[formName]"
+                    required="item.required"
+                    value="value"
+                    existance-validation="!!item.existanceValidation"
+                    key="item.name"
+                    disabled="true">
+                </app-phone-input>
+            
+                </div>
+            </span>
+            <div *ngIf="item.type == 'rrule'">
+                <input [required]="item.required"  type="text" placeholder="{{item.placeholder}}" [(ngModel)]="value" (input)="onChangeVal()" [disabled]="!canChangeBeInfo || !isEditMode || item.disabled || item.readonly" (change)="zsnTableShowSaveButton()"/>
+                <div style="margin-top: 2px" *ngIf="isEditMode">You can generate your rrule with <a target="_blank" href="https://www.textmagic.com/free-tools/rrule-generator">rrule generator</a></div>
+            </div>
+    
+            <div *ngIf="item.type == 'smart-street'" [ngClass]="{'clickable-input': item.path}" (click)="onPathClickDefaultHandler(item.path, !canChangeBeInfo || !isEditMode || item.disabled || item.readonly)">
+                <app-smart-street-input
+                    item="item",
+                    form="forms[formName]",
+                    can-change-be-info="canChangeBeInfo"
+                    is-edit-mode="isEditMode",
+                    init-state="item.initState",
+                    init-city="item.initCity"
+                >
+                </app-smart-street-input>
+            </div>
+            
+            <span *ngIf="item.type === 'email'" class="clickable-input" (click)="onEmailInputClick(value, !canChangeBeInfo || !isEditMode || item.disabled || item.readonly)">
+                <app-email-input
+                    key="item.name"
+                    value="value"
+                    pattern="item.pattern"
+                    form="forms[formName]"
+                    existance-validation="!!item.existanceValidation"
+                    required="item.required"
+                    disabled="!canChangeBeInfo || !isEditMode || item.disabled || item.readonly"
+                    readonly="item.readonly"
+                    isEditMode="isEditMode"
+                    is-edit-mode="isEditMode"
+            ></app-email-input>
+            </span>
+            <app-password-field *ngIf="item.type === 'password'"></app-password-field>
+            <span *ngIf="item.type === 'select-card'">
+                <app-select-card value="value" cards="item.cards"></app-select-card>
+            </span>
+            <div *ngIf="item.type === 'boolean'" dx-switch="{value: value, disabled: !canChangeBeInfo || !isEditMode || item.disabled || item.readonly, switchedOffText: 'No', switchedOnText: 'Yes'}" >{{value ? 'Yes' : 'No'}}</div>
+            <!-- <div *ngIf="item.type == 'select-multiple'" style="height: 30px;">
+                <selectize 
+                    options='dicts[item.options]' 
+                    config="item.config"
+                    [(ngModel)]="value" (input)="onChangeVal()" 
+                    placeholder="--Select some items from list--"
+                    [disabled]='false'>
+                </selectize>
+            </div>-->
+            <!-- <app-select *ngIf="item.type === 'select'"> </app-select> -->
+
+            <div class="role-charges" *ngIf="item.key == 'NewAdminUserId'">
+                <span class="role-charges-text">
+                    * This operation may incur additional charges to your future Billing Statements
+                </span>
+            </div>
+            <div *ngIf="item.name=='CardHolderId' || item.name=='AccountOwnerId'" class="new-cardholder">
+    
+                <label *ngIf="item.form=='make-payable'" class="input-control checkbox small-check as-account-owner">
+                    <span class="caption">The Same As Account Owner</span>
+                    <input (click)="asAccountOwner(item)" type="checkbox" id="asAccOwnerCheckbox" disabled>
+                    <span class="check"></span>
+                </label>
+                <div>
+                    <a (click)="newCardHolder()">{{item.name=='CardHolderId' ? 'New Card Holder' : 'New Account Owner'}}</a>
+                </div>
+            </div>
+            <app-block *ngIf="item.type == 'block'"></app-block>
+    
+            <app-country-input
+                    *ngIf="item.type === 'country'"
+                    item="item"
+                    field-id="item.id || item.name"
+                    link-to-state="item.statePare"
+                    smart="item.smart"
+                    is-disabled="!isEditMode || item.disabled || item.readonly"
+                    is-edit-mode="isEditMode"
+            ></app-country-input>
+    
+            <app-state-input
+                    *ngIf="item.type === 'state'"
+                    item="item"
+                    on-change="stateChange(item)"
+                    field-id="item.id || item.name"
+                    smart="item.smart"
+                    link-to-country="item.countryPare"
+                    is-disabled="!isEditMode || item.disabled || item.readonly"
+                    is-edit-mode="isEditMode"
+            ></app-state-input>
+    
+            <div *ngIf="item.type === PARAM_TYPE.AffirmativeCategory">
+                <select [(ngModel)]="value" (input)="onChangeVal()"
+                        ng-options="o.value as o.text for o in dicts.affirmativeCategories"
+                        style="width: 100%; height: 100%;"
+                        [hidden]="!isEditMode || item.disabled || item.readonly"
+                        (change)="changeAffirmativeCategoriesHandler(item)"
+                        [required]="item.required"
+                        class="{{getSelectionClass(item)}}"
+                ></select>
+                <input *ngIf="!isEditMode || item.disabled || item.readonly"
+                        [hidden]="isEditMode" type="text" value="{{getValueFromDict(item)}}"
+                        [required]="item.required" disabled="disabled"
+                        class="{{getSelectionClass(item)}}"
+                />
+            </div>
+    
+            <div *ngIf="item.type === PARAM_TYPE.AffirmativeSubCategory">
+                <select [(ngModel)]="value" (input)="onChangeVal()"
+                        ng-options="o.value as o.text for o in dicts.affirmativeSubCategories"
+                        style="width: 100%; height: 100%;"
+                        [hidden]="!isEditMode || item.disabled || item.readonly"
+                        [required]="item.required"
+                        class="{{getSelectionClass(item)}}"
+                ></select>
+                <input *ngIf="!isEditMode || item.disabled || item.readonly"
+                        [hidden]="isEditMode" type="text" value="{{getValueFromDict(item)}}"
+                        [required]="item.required" disabled="disabled"
+                        class="{{getSelectionClass(item)}}"
+                />
+            </div>
+    
+            <span *ngIf="item.type === 'streetView'" (click)="onFieldClick(item)" class="clickable-input">
+                <img [src]="value"/>
+            </span>
+    
+            <app-work-hours *ngIf="item.type === 'workhours'"></app-work-hours>
+            <app-employees-headcount *ngIf="item.type === 'EmployeesHeadcount'"></app-employees-headcount>
+    
+    
+            <div *ngIf="item.type === 'trades'">
+                <app-trades-select [(ngModel)]='value' show-save-button="zsnTableShowSaveButton()" *ngIf="canChangeBeInfo && isEditMode"></app-trades-select>
+                <app-trades-select [(ngModel)]='value' show-save-button="zsnTableShowSaveButton()" *ngIf="!canChangeBeInfo || !isEditMode" readonly="readonly"></app-trades-select>
+            </div>
+            <textarea *ngIf="item.type === 'textarea'" [(ngModel)]="value" (input)="onChangeVal()" (change)="zsnTableShowSaveButton()" [disabled]="!isEditMode || item.disabled || item.readonly" id="{{item.id}}" [required]="item.required">{{be.CorporateMissionStatement}}</textarea>
+    
+            <div *ngIf="item.type === 'date' && isEditMode && !item.disabled && !item.readonly" dx-date-box="initDateBox(item)"></div>
+            <input *ngIf="item.type === 'date' && (!isEditMode || item.disabled || item.readonly) && item.format" [hidden]="isEditMode && !(item.disabled || item.readonly)" type="text" value="{{value | date: item.format}}" [required]="item.required" disabled="disabled"/>
+            <input *ngIf="item.type === 'date' && (!isEditMode || item.disabled || item.readonly) && !item.format" [hidden]="isEditMode && !(item.disabled || item.readonly)" type="text" value="{{value}}" [required]="item.required" disabled="disabled"/>
+        </div>
+        <app-doc-hat *ngIf="item.type === 'doc-hat'"></app-doc-hat>
+        <app-profile-hat *ngIf="item.type === 'profile-hat'"></app-profile-hat>
+    </div> 
+

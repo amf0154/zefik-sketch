@@ -1,0 +1,159 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    margin-right: 0;
+}
+
+
+
+input.ng-invalid.ng-touched {
+    border:solid red 1px !important;
+}
+input.ng-touched.ng-valid {
+    border:solid green 1px !important;
+}
+
+#gridContainer,#toolbar {
+    width: 87%;
+    margin-left: auto;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.dx-overlay-wrapper.dx-popup-wrapper {
+    z-index: 1571 !important;
+    transform: none !important;
+}
+
+.dx-datagrid-column-chooser .dx-overlay-content {
+    opacity: .9 !important;
+}
+
+.dx-item-content .dx-button-mode-contained {
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+}
+
+.dx-button-has-text .dx-button-content {
+    padding: 7px 2px 7px 18px !important;
+}
+
+.dx-icon.mif-loop2:before, .dx-icon.mif-pencil:before {
+    font-size: 13px !important;
+    top: -2px;
+    position: relative;
+}
+
+.dx-icon.mif-plus:before {
+    font-size: 16px !important;
+    position: relative;
+}
+
+.dx-command-select {
+    min-width: 2rem !important;
+    max-width: 2rem !important;
+}
+
+.dx-datagrid-headers td[role="columnheader"] {
+    border-bottom: 0;
+    color: #514F4D;
+    font-size: .75rem;
+    font-weight: 600;
+    height: 40px;
+    text-transform: uppercase;
+    vertical-align: middle !important;
+}
+
+.dx-widget {
+    color: #333;
+    font-weight: 400;
+    font-size: 14px;
+    font-family: 'Helvetica Neue','Segoe UI',Helvetica,Verdana,sans-serif;
+    line-height: 1.35715;
+}
+
+.action-bar {
+    height: 40px !important;
+}
+
+.dx-selection > td{
+    background-color: #e9f6fc !important;
+}
+
+.dx-state-hover > td{
+    background-color: #e9f6fc !important;
+}
+
+.dx-datagrid-adaptive-more::before {
+    font-weight: 600;
+}
+
+.dx-widget {
+    display: block;
+    -ms-content-zooming: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: none;
+    -webkit-touch-callout: none;
+    padding: 0;
+    outline: 0;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+    color: #333;
+    font-weight: 400;
+    font-size: 14px;
+    font-family: "Helvetica Neue","Segoe UI",helvetica,verdana,sans-serif;
+    line-height: 1.35715;
+}
+
+.dx-field-item-label-content {
+    font-weight: bold;
+}
+
+.dx-layout-manager .dx-label-h-align.dx-flex-layout {
+    display: block !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.monthly_orange {
+    color: orange
+}
+
+.monthly_red {
+    color: red;
+}
+
+.monthly_green {
+    color: green;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.transaction-status.approved {
+    color: green;
+}
+
+.transaction-status.declined {
+    color: red;
+}
+
+.transaction-status.void {
+    color: #fbd564;
+}
+
+.dx-item.dx-accordion-item {
+    border: none;
+    margin-top: 25px;
+    background-color: #FFFFFF;
+    box-shadow: 8px 8px 13px -5px rgb(0 0 0 / 50%);
+}
+
+.mat-list-base .mat-list-item .mat-list-text, .mat-list-base .mat-list-option .mat-list-text {
+    overflow: visible !important;
+}

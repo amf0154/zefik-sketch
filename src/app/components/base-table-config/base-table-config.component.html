@@ -1,0 +1,43 @@
+
+<app-toolbar [buttons]="buttons"></app-toolbar>
+<dx-data-grid id="gridContainer"
+    #gridContainer
+    [dataSource]="dataSource"
+    [showBorders]="true"
+    [showRowLines]="true"
+    [remoteOperations]="true"
+    [columnHidingEnabled]="true"
+    [hoverStateEnabled]="true"
+    [columns]="columns"
+    (onContentReady)="onContentReady($event)"
+    (onSelectionChanged)="onSelectionChanged($event)"
+    >
+    <dxo-selection
+        selectAllMode="page"
+        mode="multiple"
+        showCheckBoxesMode = 'always'
+    ></dxo-selection>
+    <dxo-paging [pageSize]="25"></dxo-paging>
+    <dxo-pager
+        [visible]="true"
+        [showInfo]="true"
+        [showPageSizeSelector]="true"
+        [allowedPageSizes]="[25, 50, 100]"
+    ></dxo-pager>
+    <dxo-column-chooser
+        [enabled]="false"
+        mode="select"
+        [allowSearch]="true">
+    </dxo-column-chooser>
+    <!-- <dxo-load-panel
+        [enabled]="false">
+    </dxo-load-panel> -->
+    <dxo-summary *ngIf="column">
+        <dxi-total-item
+            column="{{column}}"
+            [customizeText]="customizeText"
+            [summaryType]="summaryType">   
+        </dxi-total-item>
+    </dxo-summary>
+    <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+</dx-data-grid>

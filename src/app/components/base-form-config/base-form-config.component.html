@@ -1,0 +1,68 @@
+<app-toolbar #toolbar [buttons]="buttons"></app-toolbar>
+<div class="cell-view zsn-content ng-scope">
+    <div id="be-general-view" class="container flex-grid full-size new-form zsn-main-accordion" *ngIf="isDataLoaded">
+    <div class="row flex-just-center">
+        <div class="cell size-x800" style="width: 100%;position: relative;z-index: 1100">
+            <form [formGroup]="zsnForm">
+                <div id="accordion">
+                    <dx-accordion
+                    #accordion
+                    [dataSource]="dataSource"
+                    [collapsible]="true"
+                    [multiple]="true"
+                    (onInitialized)="onInitialized($event)"
+                    (onContentReady)="onContentReady($event)">
+                    <div *dxTemplate="let item of 'title'">
+                        <h3 class="tile-header" [ngClass]="item.headerCssClass">
+                            <span class="tile-image" ng-if="data.icon" style="background-image: url('/assets/tiles/{{item.icon}}')">&nbsp;</span>
+                            <span class="tile-title">{{item.title}}</span>
+                            <span class="accordion-subtitle" *ngIf="item.subtitle">({{item.subtitle}})</span>
+                        </h3>
+                    </div>
+                    <div *dxTemplate="let $item of 'item'">
+                        <div *ngFor="let item of $item.items">
+                            <app-form-page *ngIf="item.type !== 'form'" [item]=item [formControlName]="item.name" [isEditMode]="isEditMode"></app-form-page>
+                            <div *ngIf="item.type === 'form'" [ngClass]="item.cssClass">
+                                <h4 class="form-panel-title" style="display: flex">
+                                    <div>{{item.title}}</div>
+                                    <app-tooltip *ngIf="item.hint" [hint]="item.hint" [id]='item.id'></app-tooltip>
+                                    <div style="margin-left: auto" *ngIf="!isEditMode && (item.items[0].type === 'address1' || item.items[0].type === 'address2' || item.items[0].type === 'address3')" class="verify-status">
+                                        <div class="verified-block" *ngIf="!isAddressValidateByType(item.items[0].type) && !!verifyAddressInformation(item.items[0].type).userId">
+                                            <i class="fa fa-exclamation-triangle nverified"></i>
+                                            <div class="verified-info">
+                                                <div class="verified-info-table">
+                                                    <div class="verified-line">Entered by <a href="#/be/{{beId}}/ap/{{verifyAddressInformation(item.items[0].type).userId}}/general" class="gray">{{verifyAddressInformation(item.items[0].type).verifiedBy}}</a> </div>
+                                                    <div class="verified-line">and was unable to be verified</div>
+                                                    <div class="verified-line">by <a class="gray" href="https://smartystreets.com/">SmartyStreets</a></div>
+                                                    <div class="verified-line">on {{verifyAddressInformation(item.items[0].type).verifiedDate}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="verified-block" *ngIf="isAddressValidateByType(item.items[0].type) && !!verifyAddressInformation(item.items[0].type).userId">
+                                            <i class="fa fa-check verified"></i>
+                                            <div class="verified-info">
+                                                <div class="verified-info-table">
+                                                    <div class="verified-line">Entered by <a href="#/be/{{beId}}/ap/{{verifyAddressInformation(item.items[0].type).userId}}/general" class="gray">{{verifyAddressInformation(item.items[0].type).verifiedBy}}</a> </div>
+                                                    <div class="verified-line">and verified by <a class="gray" href="https://smartystreets.com/">SmartyStreets</a></div>
+                                                    <div class="verified-line">on {{verifyAddressInformation(item.items[0].type).verifiedDate}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </h4>
+                            
+                                <div *ngFor="let item of item.items" [hidden]="item.isHidden" >
+                                    <app-form-page [item]="item" [formControlName]="item.name" [isEditMode]="isEditMode"></app-form-page>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </dx-accordion>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+

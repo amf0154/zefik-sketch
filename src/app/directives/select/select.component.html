@@ -1,0 +1,54 @@
+ 
+
+        <select class="form-control col-lg-4 col-xs-4" style="width: 350px">
+            <option *ngFor='let option of options' [value]="optionValue(option)">{{optionName(option)}}</option>
+          </select>
+
+<!-- <div style="display: flex; align-items: center;width: 100%" ng-show="isEditMode">
+    <select ng-if="isObjectValue"
+            ng-model="item.value"
+            ng-options="o as o[labelField] for o in dict"
+            style="width: 100%; height: 100%;"
+            ng-hide="!isEditMode || item.disabled || item.readonly"
+            ng-change="formItemChangeHandler(item)"
+            ng-required="item.required"
+            ng-class="{{getSelectionClass(item)}}"
+    ></select>
+    <select ng-if="!isObjectValue"
+            ng-model="item.value"
+            ng-options="o[valueField] as o[labelField] for o in dict"
+            style="width: 100%; height: 100%;"
+            ng-hide="!isEditMode || item.disabled || item.readonly"
+            ng-change="formItemChangeHandler(item)"
+            ng-required="item.required"
+            ng-class="{{getSelectionClass(item)}}"
+    ></select>
+
+    <span ng-if="!isEditMode || item.disabled || item.readonly" style="width: 100% !important" ng-click="onFieldClick(item)">
+        <select 
+            ng-if="!isObjectValue"
+            ng-model="item.value"
+            ng-options="o[valueField] as o[labelField] for o in dict"
+            style="width: 100%; height: 100%;"
+            ng-change="formItemChangeHandler(item)"
+            ng-required="item.required"
+            ng-class="{{getSelectionClass(item)}}"
+            ng-disabled="true"
+        ></select>
+        <select 
+            ng-if="isObjectValue"
+            ng-model="item.value"
+            ng-options="o as o[labelField] for o in dict"
+            style="width: 100%; height: 100%;"
+            ng-change="formItemChangeHandler(item)"
+            ng-required="item.required"
+            ng-class="{{getSelectionClass(item)}}"
+            ng-disabled="true"
+        ></select>
+    </span>
+    <div style="margin-left: 5px;" ng-if="currentIcon !== null">
+       <img style="height: 28px; width: 28px;" ng-if="currentIcon !== null" ng-src='{{currentIcon}}' alt="">
+    </div>
+</div>
+<input ng-show="!isEditMode" type="text" value="{{newValue || ''}}" disabled="disabled"/> -->
+

@@ -1,0 +1,20 @@
+<span>
+    <sup class="form-panel-hint fa-stack stack-height"
+        [attr.data-tooltip]="hint"
+         *ngIf="hint"
+         (mouseenter)="toggleDefault()"
+         (mouseleave)="toggleDefault()"
+         id="{{id}}-tooltip">
+        <i class="fa fa-info fg-blue fa-stack-1x"></i>
+        <i class="fa fa-circle-thin fg-blue fa-stack-1x"></i>
+    </sup>
+    <dx-tooltip 
+        *ngIf="hint"
+        target="#{{id}}-tooltip" 
+        [(visible)]="defaultVisible"
+        [closeOnOutsideClick]="defaultVisible">
+        <div *dxTemplate="let data = data of 'content'">
+            {{hint}}
+        </div>
+    </dx-tooltip>
+</span>

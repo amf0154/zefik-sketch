@@ -1,0 +1,24 @@
+<!-- <div class="row cells12">
+    <h5 ng-if="!isConsistentData" class="text-center full-width">No data to display</h5>
+    <table class="table tile-table" ng-if="isConsistentData">
+        <tr>
+            <th>Calendar Year:</th>
+            <th>Organic Employees: <zsn-tooltip hint="organicHint"></zsn-tooltip></th>
+            <th>Non-Organic Employees: <zsn-tooltip hint="nonOrganicHint"></zsn-tooltip></th>
+            <th>Total: <zsn-tooltip hint="totalHint"></zsn-tooltip></th>
+        </tr>
+        <tr ng-repeat="row in ::item.value" ng-if="!isEditMode">
+            <td>{{::row.Year}}</td>
+            <td>{{::getStatistic(row, EMPLOYEES_HEADCOUNT_TYPE.Organic)}}</td>
+            <td>{{::getStatistic(row, EMPLOYEES_HEADCOUNT_TYPE.NonOrganic)}}</td>
+            <td><b ng-if="hasValuedStatistics(row)">{{::getTotal(row)}}</b></td>
+        </tr>
+
+        <tr ng-repeat="row in item.value" ng-if="isEditMode">
+            <td>{{::row.Year}}</td>
+            <td><input type="text" ng-model="getModel(row, EMPLOYEES_HEADCOUNT_TYPE.Organic).Amount" numbers-only /></td>
+            <td><input type="text" ng-model="getModel(row, EMPLOYEES_HEADCOUNT_TYPE.NonOrganic).Amount" numbers-only /></td>
+            <td><b ng-if="hasValuedStatistics(row)">{{getTotal(row)}}</b></td>
+        </tr>
+    </table>
+</div> -->
